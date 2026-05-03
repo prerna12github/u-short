@@ -8,7 +8,7 @@ export default function Home() {
             Welcome to U-Short
           </h1>
           <p className="w-auto mt-3 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-           Turn your long, messy URLs into short, easy-to-share links.
+           Turn your long, messy URLs into short, easy to share links.
           </p>
         </div>
         <div className="w-full mt-8">

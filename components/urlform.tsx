@@ -1,6 +1,6 @@
 export default function UrlForm() {
   return (
-  <div className="flex flex-col items-center justify-center h-screen dark">
+  <div className="flex flex-col items-center justify-center dark mt-8">
     <div className="w-full max-w-md bg-gray-900 rounded-lg shadow-md p-6">
       <h2 className="text-2xl font-bold text-gray-200 mb-4">Enter your long URL</h2>
   

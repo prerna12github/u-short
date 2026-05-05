@@ -24,7 +24,7 @@ export default function UrlForm() {
          setErrors(data.detail);
          setStatus('error');
        } else {
-         setShortUrl(data.shortUrl);
+         setShortUrl(data);
          setStatus('success');
        }
      } catch (error) {

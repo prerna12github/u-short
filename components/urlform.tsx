@@ -24,7 +24,8 @@ export default function UrlForm() {
          setErrors(data.detail);
          setStatus('error');
        } else {
-         setShortUrl(data);
+         const base="http://localhost:3000/";
+         setShortUrl(base+data);
          setStatus('success');
        }
      } catch (error) {

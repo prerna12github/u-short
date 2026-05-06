@@ -2,7 +2,6 @@ import { CheckCircle2Icon } from "lucide-react"
 
 import {
   Alert,
-  AlertDescription,
   AlertTitle,
 } from "../components/ui/alert"
 

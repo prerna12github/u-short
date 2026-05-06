@@ -9,7 +9,7 @@ export default function UrlForm() {
   const [errors, setErrors] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setStatus("loading");
     try {

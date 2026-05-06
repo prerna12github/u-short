@@ -73,6 +73,7 @@ export default function UrlForm() {
               Your short URL:{shortUrl}
             </p>
           )}
+          <div className="flex gap-8">
           {shortUrl && (
             <button
               className="flex justify-center bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-blue-600 transition ease-in-out duration-150 w-45 font-mono"
@@ -94,6 +95,7 @@ export default function UrlForm() {
               Visit link
             </button>
           )}
+          </div>
         </form>
       </div>
       {visible && <AlertBasic />}

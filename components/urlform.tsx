@@ -33,7 +33,7 @@ export default function UrlForm() {
         setShortUrl(base + data);
         setStatus("success");
       }
-    } catch (error) {
+    } catch (error:unknown) {
       console.error(error);
       setStatus("error");
       if (error instanceof Error) {

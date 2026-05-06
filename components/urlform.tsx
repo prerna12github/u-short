@@ -74,6 +74,7 @@ export default function UrlForm() {
           {shortUrl && (
             <button
               className="flex justify-center bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-blue-600 transition ease-in-out duration-150 w-45 font-mono"
+              type="button"
               onClick={() => navigator.clipboard.writeText(shortUrl)}
             >
               Copy
@@ -81,7 +82,8 @@ export default function UrlForm() {
           )}
           {shortUrl && (
             <button
-              className="flex row justify-center bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-yellow-300 transition ease-in-out duration-150 w-45 font-mono"
+              className="flex justify-center bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-yellow-300 transition ease-in-out duration-150 w-45 font-mono"
+              type="button"
               onClick={() => window.open(url)}
             >
               Visit link

@@ -9,7 +9,7 @@ export default function UrlForm() {
   const [errors, setErrors] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const handleSubmit = async (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setStatus("loading");
     try {
@@ -80,7 +80,7 @@ export default function UrlForm() {
           <div className="flex gap-8">
           {shortUrl && (
             <button
-              className="flex justify-center bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-blue-600 transition ease-in-out duration-150 w-45 font-mono"
+              className="flex justify-center bg-linear-to-r from-blue-500 to-green-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-blue-600 transition ease-in-out duration-150 w-45 font-mono"
               type="button"
               onClick={() => {
                 navigator.clipboard.writeText(shortUrl);
@@ -92,7 +92,7 @@ export default function UrlForm() {
           )}
           {shortUrl && (
             <button
-              className="flex justify-center bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-yellow-300 transition ease-in-out duration-150 w-45 font-mono"
+              className="flex justify-center bg-linear-to-r from-yellow-500 to-orange-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-yellow-300 transition ease-in-out duration-150 w-45 font-mono"
               type="button"
               onClick={() => window.open(url)}
             >

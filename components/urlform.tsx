@@ -36,10 +36,8 @@ export default function UrlForm() {
     } catch (error:unknown) {
       console.error(error);
       setStatus("error");
-      const message =
-         error instanceof Error ? error.message : "Unknown error";
-     
-       setErrors(message);
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setErrors(message);
     }
   };
 

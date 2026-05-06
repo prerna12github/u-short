@@ -14,7 +14,7 @@ export default function UrlForm() {
     setStatus("loading");
     try {
       const response = await fetch(
-        `url-shortner-api-one.vercel.app/shorten?url=${encodeURIComponent(url)}`,
+        `https://url-shortner-api-one.vercel.app/shorten?url=${encodeURIComponent(url)}`,
         {
           method: "POST",
           headers: {

@@ -71,7 +71,7 @@ export default function UrlForm() {
           )}
           {shortUrl && (
             <p className="font-mono text-gray-200 mt-4">
-              Your short URL:{shortUrl}
+              Your short URL : {shortUrl}
             </p>
           )}
           <div className="flex gap-8">

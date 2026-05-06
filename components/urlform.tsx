@@ -97,10 +97,11 @@ export default function UrlForm() {
             </button>
           )}
           </div>
+          {visible && <AlertBasic />}
+          {visible && <button className="flex justify-center bg-linear-to-r from-red-500 to-red-600 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-red-700 transition ease-in-out duration-150 w-45 font-mono" onClick={() => setVisible(false)}>Close</button>}
         </form>
       </div>
-      {visible && <AlertBasic />}
-      {visible && <button onClick={() => setVisible(false)}>Close</button>}
+    
      </div>
   );
 }

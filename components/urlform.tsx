@@ -29,7 +29,7 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = "u-short-red.vercel.app";
+        const base = "u-short/";
         setShortUrl(base + data);
         setStatus("success");
       }

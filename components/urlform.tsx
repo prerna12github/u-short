@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
+import { AlertBasic } from "./Alert";
 
 export default function UrlForm() {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [status, setStatus] = useState("");
   const [errors, setErrors] = useState("");
+  const [visible, setVisible] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,7 +77,10 @@ export default function UrlForm() {
             <button
               className="flex justify-center bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-blue-600 transition ease-in-out duration-150 w-45 font-mono"
               type="button"
-              onClick={() => navigator.clipboard.writeText(shortUrl)}
+              onClick={() => {
+                navigator.clipboard.writeText(shortUrl);
+                setVisible(true);
+              }}
             >
               Copy
             </button>
@@ -91,6 +96,7 @@ export default function UrlForm() {
           )}
         </form>
       </div>
-    </div>
+      {visible && <AlertBasic />}
+     </div>
   );
 }

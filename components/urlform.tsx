@@ -33,7 +33,7 @@ export default function UrlForm() {
         setShortUrl(base + data);
         setStatus("success");
       }
-    } catch (error: unknown) {
+    } catch (error) {
       console.error(error);
       setStatus("error");
       if (error instanceof Error) {
@@ -60,7 +60,7 @@ export default function UrlForm() {
             onChange={(e) => setUrl(e.target.value)}
           ></input>
           <button
-            className="flex justify-center bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-green-600 hover:to-blue-600 transition ease-in-out duration-150 w-45 font-mono"
+            className="flex justify-center bg-linear-to-r from-green-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-green-600 hover:to-blue-600 transition ease-in-out duration-150 w-45 font-mono"
             type="submit"
             onClick={handleSubmit}
           >

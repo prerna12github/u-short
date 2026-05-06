@@ -14,7 +14,7 @@ export default function UrlForm() {
     setStatus("loading");
     try {
       const response = await fetch(
-        `http://localhost:8000/shorten?url=${encodeURIComponent(url)}`,
+        `url-shortner-api-one.vercel.app/shorten?url=${encodeURIComponent(url)}`,
         {
           method: "POST",
           headers: {
@@ -29,7 +29,7 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = "http://localhost:3000/";
+        const base = "u-short-red.vercel.app";
         setShortUrl(base + data);
         setStatus("success");
       }

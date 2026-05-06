@@ -100,6 +100,7 @@ export default function UrlForm() {
         </form>
       </div>
       {visible && <AlertBasic />}
+      {visible && <button onClick={() => setVisible(false)}>Close</button>}
      </div>
   );
 }

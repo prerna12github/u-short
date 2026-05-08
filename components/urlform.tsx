@@ -29,7 +29,7 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = window.location.href;
+        const base = window.location.origin;
         console.log(base);
         setShortUrl(base + data);
         setStatus("success");

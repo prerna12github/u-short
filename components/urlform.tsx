@@ -29,7 +29,7 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = window.location.origin;
+        const base = window.location.href;
         console.log(base);
         setShortUrl(base + data);
         setStatus("success");
@@ -92,7 +92,7 @@ export default function UrlForm() {
             <button
               className="flex justify-center bg-linear-to-r from-yellow-500 to-orange-500 text-white font-bold py-2 px-4 rounded-md mt-4  hover:to-yellow-300 transition ease-in-out duration-150 w-45 font-mono"
               type="button"
-              onClick={() => window.open(url)}
+              onClick={() => window.location.href = url}
             >
               Visit link
             </button>

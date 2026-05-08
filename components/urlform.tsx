@@ -29,7 +29,8 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = "u-short/";
+        const base = window.location.href;
+        console.log(base);
         setShortUrl(base + data);
         setStatus("success");
       }

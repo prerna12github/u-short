@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { AlertBasic } from "./Alert";
+import { redirect } from "next/navigation";
+import { SP } from "next/dist/shared/lib/utils";
 
 export default function UrlForm() {
   const [url, setUrl] = useState("");
@@ -14,7 +16,7 @@ export default function UrlForm() {
     setStatus("loading");
     try {
       const response = await fetch(
-        `https://url-shortner-api-one.vercel.app/shorten?url=${encodeURIComponent(url)}`,
+        `https://u-shortner.vercel.app/shorten?url=${encodeURIComponent(url)}`,
         {
           method: "POST",
           headers: {
@@ -29,9 +31,9 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = window.location.href;
+        const base = window.location.origin;
         console.log(base);
-        setShortUrl(base + data);
+        setShortUrl(base + '/' + data);
         setStatus("success");
       }
     } catch (error:unknown) {
@@ -40,6 +42,7 @@ export default function UrlForm() {
       const message = error instanceof Error ? error.message : "Unknown error";
       setErrors(message);
     }
+    
   };
 
   return (
@@ -75,6 +78,7 @@ export default function UrlForm() {
               Your short URL : {shortUrl}
             </p>
           )}
+          {shortUrl && window.location.href = url}
           <div className="flex gap-8">
           {shortUrl && (
             <button

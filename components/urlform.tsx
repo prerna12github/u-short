@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { AlertBasic } from "./Alert";
-import { redirect } from "next/navigation";
-import { SP } from "next/dist/shared/lib/utils";
+
 
 export default function UrlForm() {
   const [url, setUrl] = useState("");
@@ -31,9 +30,9 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = window.location.origin;
+        const base = `https://u-shortner.vercel.app/${data}`;
         console.log(base);
-        setShortUrl(base + '/' + data);
+        setShortUrl(base);
         setStatus("success");
       }
     } catch (error:unknown) {
@@ -78,7 +77,7 @@ export default function UrlForm() {
               Your short URL : {shortUrl}
             </p>
           )}
-          {shortUrl && window.location.href = url}
+          
           <div className="flex gap-8">
           {shortUrl && (
             <button

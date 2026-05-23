@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       allowedOrigins: [
-        "http://localhost:8000",
-        "https://u-shortner.vercel.app",
+        "localhost:8000",
+        "u-shortner.vercel.app",
       ],
     },
   },

@@ -1,36 +1,236 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# URL Shortener
 
-## Getting Started
+A fast and scalable URL Shortener built using FastAPI, Neon PostgreSQL, Redis Cache, and the GLIDE library.  
+This project generates short URLs for long links and improves performance using Redis caching for faster redirects.
 
-First, run the development server:
+---
+
+## Features
+
+- Shorten long URLs
+- Redirect users using short URLs
+- Redis caching for high-speed lookups
+- Neon PostgreSQL database integration
+- Automatic URL expiration after 30 days
+- Cron job cleanup system
+- FastAPI backend
+- Deployed on Vercel
+- Async Redis operations using GLIDE
+
+---
+
+## Tech Stack
+
+### Backend
+- FastAPI
+- Python
+
+### Database
+- Neon PostgreSQL
+
+### Cache
+- Redis / Valkey
+- GLIDE Python Client
+
+### Deployment
+- Vercel
+
+---
+
+## How It Works
+
+1. User submits a long URL
+2. Backend generates a unique short code
+3. URL mapping is stored in Neon PostgreSQL
+4. Short code is cached in Redis using GLIDE
+5. When user visits a short URL:
+   - Redis cache is checked first
+   - If cache hit → instant redirect
+   - If cache miss → fetch from database and update cache
+6. Expired URLs are automatically deleted after 30 days using a cron job
+
+---
+
+## Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+.
+├── main.py
+├── database.py
+├── redis_client.py
+├── requirements.txt
+├── vercel.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API Endpoints
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Create Short URL
 
-## Learn More
+```http
+POST /shorten?url=https://example.com
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Response
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```json
+{
+  "short_url": "https://yourdomain.com/abc123"
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### Redirect Using Short URL
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```http
+GET /{short_code}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Example:
+
+```http
+GET /abc123
+```
+
+Redirects the user to the original URL.
+
+---
+
+## Redis Caching with GLIDE
+
+This project uses the GLIDE library for async Redis communication.
+
+### Why GLIDE?
+
+- High-performance async Redis operations
+- Efficient caching
+- Lower latency
+- Better scalability for large traffic
+
+### Cache Flow
+
+- First request → Database lookup
+- Data stored in Redis cache
+- Future requests → Served directly from Redis
+
+This significantly improves redirect speed and reduces database load.
+
+---
+
+## URL Expiration System
+
+URLs automatically expire after 30 days.
+
+A cron job periodically:
+
+- Finds expired URLs
+- Deletes them from Neon PostgreSQL
+- Removes them from Redis cache
+
+This keeps the system lightweight and optimized.
+
+---
+
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+REDIS_HOST=your_redis_host
+REDIS_PORT=6379
+REDIS_PASSWORD=your_redis_password
+
+DATABASE_URL=your_neon_database_url
+```
+
+If deploying on Vercel, add the same variables in:
+
+```bash
+Vercel Dashboard → Project Settings → Environment Variables
+```
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/url-shortener.git
+cd url-shortener
+```
+
+---
+
+### Create Virtual Environment
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment:
+
+#### Linux / Mac
+
+```bash
+source .venv/bin/activate
+```
+
+#### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+---
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### Run FastAPI Server
+
+```bash
+uvicorn main:app --reload
+```
+
+Server runs on:
+
+```bash
+http://127.0.0.1:8000
+```
+
+---
+
+## Performance Optimization
+
+- Redis cache minimizes database queries
+- Faster redirects
+- Reduced response time
+- Better scalability under high traffic
+- Async operations using GLIDE improve efficiency
+
+---
+
+## Future Improvements
+
+- User authentication
+- Analytics dashboard
+- Click tracking
+- Custom short URLs
+- QR code generation
+- Rate limiting
+- URL preview support
+
+---
+
+## Author
+
+Built using FastAPI, Neon PostgreSQL, Redis, GLIDE, and Python.

@@ -7,9 +7,9 @@ import {
 
 export function AlertBasic() {
   return (
-    <Alert className="max-w-md">
-      <CheckCircle2Icon />
-      <AlertTitle>Copied to clipboard!</AlertTitle>
+    <Alert className="max-w-md bg-gray-800 border-gray-700">
+      <CheckCircle2Icon className="text-green-400" />
+      <AlertTitle className="text-gray-200">Copied to clipboard!</AlertTitle>
     </Alert>
   )
 }

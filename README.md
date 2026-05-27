@@ -1,73 +1,128 @@
-# URL Shortener
+# U-Short 🚀
 
-A fast and scalable URL Shortener built using FastAPI, Neon PostgreSQL, Redis Cache, and the GLIDE library.  
-This project generates short URLs for long links and improves performance using Redis caching for faster redirects.
-
----
-
-## Features
-
-- Shorten long URLs
-- Redirect users using short URLs
-- Redis caching for high-speed lookups
-- Neon PostgreSQL database integration
-- Automatic URL expiration after 30 days
-- Cron job cleanup system
-- FastAPI backend
-- Deployed on Vercel
-- Async Redis operations using GLIDE
+A modern and fast URL shortener built with **FastAPI**, **PostgreSQL**, **Redis Cache (Valkey/GLIDE)**, and a **Next.js** frontend.  
+U-Short generates short URLs instantly, improves redirect performance using Redis caching, and automatically removes expired URLs after 30 days using scheduled cleanup jobs.
 
 ---
 
-## Tech Stack
+# 🌐 Live Demo
 
-### Backend
+## Frontend
+https://u-short-red.vercel.app
+
+## Backend API
+https://u-shortner.vercel.app
+
+---
+
+## ✨ Features
+
+- 🔗 Shorten long URLs instantly
+- ⚡ Fast redirects using Redis caching
+- 🗄️ PostgreSQL database for persistent storage
+- ⏳ Automatic URL expiration after 30 days
+- 🧹 Automatic cleanup of expired URLs
+- 🌐 Modern frontend built with Next.js
+- 🚀 FastAPI backend API
+- 📦 Async architecture for better performance
+- ☁️ Fully deployed on Vercel
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+- Next.js
+- Tailwind CSS
+
+## Backend
 - FastAPI
 - Python
+- AsyncIO
 
-### Database
-- Neon PostgreSQL
-
-### Cache
+## Database & Cache
+- PostgreSQL (Neon)
 - Redis / Valkey
-- GLIDE Python Client
+- GLIDE client library
 
-### Deployment
+## Deployment
 - Vercel
 
 ---
 
-## How It Works
-
-1. User submits a long URL
-2. Backend generates a unique short code
-3. URL mapping is stored in Neon PostgreSQL
-4. Short code is cached in Redis using GLIDE
-5. When user visits a short URL:
-   - Redis cache is checked first
-   - If cache hit → instant redirect
-   - If cache miss → fetch from database and update cache
-6. Expired URLs are automatically deleted after 30 days using a cron job
-
----
-
-## Project Structure
+# 📂 Project Structure
 
 ```bash
-.
-├── main.py
-├── database.py
-├── redis_client.py
-├── requirements.txt
-├── vercel.json
+u-short-frontend/
+│
+├── app/
+├── components/
+├── public/
+├── package.json
 └── README.md
+
+
+u-short-backend/
+│
+├── api/
+│   ├── __init__.py
+│   ├── database.py
+│
+├── .dockerignore
+├── .env
+├── .gitignore
+├── .python-version
+├── Dockerfile
+├── main.py
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+└── uv.lock
 ```
 
 ---
 
-## API Endpoints
+# ⚡ System Architecture
 
-### Create Short URL
+```text
+User → Next.js Frontend → FastAPI Backend → PostgreSQL
+                                 ↓
+                              Redis Cache
+```
+
+---
+
+# ⚡ Redis Caching
+
+U-Short uses Redis as a caching layer to improve redirect performance.
+
+## Flow
+
+1. User requests shortened URL
+2. Backend first checks Redis cache
+3. If cache hit → redirect instantly
+4. If cache miss → fetch from PostgreSQL
+5. Store result back into Redis
+
+This reduces database load and improves response speed.
+
+---
+
+# ⏳ URL Expiration System
+
+Every shortened URL automatically expires after **30 days**.
+
+The backend periodically:
+
+- Finds expired URLs
+- Removes them from PostgreSQL
+- Removes cached entries from Redis
+
+---
+
+# 📡 API Endpoints
+
+## Shorten URL
 
 ```http
 POST /shorten?url=https://example.com
@@ -77,60 +132,62 @@ POST /shorten?url=https://example.com
 
 ```json
 {
-  "short_url": "https://yourdomain.com/abc123"
+  "short_url": "https://u-shortner.vercel.app/abc123"
 }
 ```
 
 ---
 
-### Redirect Using Short URL
+## Redirect URL
 
 ```http
-GET /{short_code}
+GET /{code}
 ```
 
-Example:
-
-```http
-GET /abc123
-```
-
-Redirects the user to the original URL.
+Redirects to the original URL.
 
 ---
 
-## Redis Caching with GLIDE
+# ⚙️ Local Development Setup
 
-This project uses the GLIDE library for async Redis communication.
+## Clone Repository
 
-### Why GLIDE?
-
-- High-performance async Redis operations
-- Efficient caching
-- Lower latency
-- Better scalability for large traffic
-
-### Cache Flow
-
-- First request → Database lookup
-- Data stored in Redis cache
-- Future requests → Served directly from Redis
-
-This significantly improves redirect speed and reduces database load.
+```bash
+git clone https://github.com/your-username/u-short.git
+cd u-short
+```
 
 ---
 
-## URL Expiration System
+# 🔧 Backend Setup
 
-URLs automatically expire after 30 days.
+## Create Virtual Environment
 
-A cron job periodically:
+```bash
+python -m venv .venv
+```
 
-- Finds expired URLs
-- Deletes them from Neon PostgreSQL
-- Removes them from Redis cache
+## Activate Virtual Environment
 
-This keeps the system lightweight and optimized.
+### Linux / macOS
+
+```bash
+source .venv/bin/activate
+```
+
+### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+---
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
@@ -139,98 +196,99 @@ This keeps the system lightweight and optimized.
 Create a `.env` file:
 
 ```env
-REDIS_HOST=your_redis_host
+DATABASE_URL=your_neon_postgresql_url
+
+REDIS_HOST=localhost
 REDIS_PORT=6379
-REDIS_PASSWORD=your_redis_password
+REDIS_PASSWORD=your_password
 
-DATABASE_URL=your_neon_database_url
+BASE_URL=http://localhost:8000
 ```
 
-If deploying on Vercel, add the same variables in:
+Example Redis connection string:
 
-```bash
-Vercel Dashboard → Project Settings → Environment Variables
-```
-
----
-
-## Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/your-username/url-shortener.git
-cd url-shortener
+```env
+redis://:password@localhost:6379
 ```
 
 ---
 
-### Create Virtual Environment
-
-```bash
-python -m venv .venv
-```
-
-Activate the environment:
-
-#### Linux / Mac
-
-```bash
-source .venv/bin/activate
-```
-
-#### Windows
-
-```bash
-.venv\Scripts\activate
-```
-
----
-
-### Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-### Run FastAPI Server
+## Run Backend
 
 ```bash
 uvicorn main:app --reload
 ```
 
-Server runs on:
+Backend runs on:
 
-```bash
+```txt
 http://127.0.0.1:8000
 ```
 
 ---
 
-## Performance Optimization
+# 💻 Frontend Setup
 
-- Redis cache minimizes database queries
-- Faster redirects
-- Reduced response time
-- Better scalability under high traffic
-- Async operations using GLIDE improve efficiency
+```bash
+npm install
+npm run dev
+```
+
+Frontend runs on:
+
+```txt
+http://localhost:3000
+```
 
 ---
 
-## Future Improvements
+# 🔐 CORS Configuration
 
-- User authentication
-- Analytics dashboard
-- Click tracking
+Since frontend and backend are deployed separately, CORS must be enabled properly in FastAPI.
+
+Example:
+
+```python
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://u-short-red.vercel.app"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+---
+
+# 📦 Example requirements.txt
+
+```txt
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+python-dotenv
+redis
+glide-for-redis
+```
+
+---
+
+# 🚀 Future Improvements
+
 - Custom short URLs
+- Analytics dashboard
 - QR code generation
+- Click tracking
+- User authentication
 - Rate limiting
-- URL preview support
 
 ---
 
-## Author
+# 👩‍💻 Author
 
-Built using FastAPI, Neon PostgreSQL, Redis, GLIDE, and Python.
+**Prerna Kumari Sharma**
+
+- GitHub: https://github.com/prerna12github

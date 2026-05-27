@@ -276,17 +276,6 @@ glide-for-redis
 
 ---
 
-# 🚀 Future Improvements
-
-- Custom short URLs
-- Analytics dashboard
-- QR code generation
-- Click tracking
-- User authentication
-- Rate limiting
-
----
-
 # 👩‍💻 Author
 
 **Prerna Kumari Sharma**

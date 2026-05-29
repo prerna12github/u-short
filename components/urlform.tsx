@@ -30,7 +30,7 @@ export default function UrlForm() {
         setErrors(data.detail);
         setStatus("error");
       } else {
-        const base = `https://u-shortner.vercel.app/${data}`;
+        const base = `${window.location.origin}/${data}`;
         console.log(base);
         setShortUrl(base);
         setStatus("success");

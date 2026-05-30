@@ -41,8 +41,23 @@ export default function UrlForm() {
       const message = error instanceof Error ? error.message : "Unknown error";
       setErrors(message);
     }
-    
   };
+
+  const redirectUrl = async (shorturl: string) => {
+    console.log(shorturl);
+    const code = shorturl.split('/').pop();
+    console.log(code);
+    const redirect = await fetch(`https://u-shortner.vercel.app/${code}`, { method: "GET" });
+    const res = await redirect.json();
+    console.log(res);
+  if (redirect.ok) {
+    const location = redirect.headers.get("location");
+    console.log(location);
+    if (location) {
+      window.location.href = location;
+    }
+  }
+};
 
   return (
     <div className="flex flex-col items-center justify-center dark mt-8">
@@ -73,8 +88,8 @@ export default function UrlForm() {
             <p className="font-mono text-red-500 mt-4">Error: {errors}</p>
           )}
           {shortUrl && (
-            <p className="font-mono text-gray-200 mt-4">
-              Your short URL : {shortUrl}
+            <p className="font-mono text-gray-200 mt-4" onClick={() => redirectUrl(shortUrl)}>
+              Your short URL : <a href={shortUrl} target="_blank" rel="noopener noreferrer">{shortUrl}</a>
             </p>
           )}
           
